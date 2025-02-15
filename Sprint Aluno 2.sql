@@ -3,7 +3,7 @@
 USE sprint1;
 
 /* Escreva e execute os comandos para:
-• Criar a tabela chamada Atleta para conter os dados: 
+Criar a tabela chamada Atleta para conter os dados: 
 idAtleta (int e chave primária da tabela), 
 nome (varchar, tamanho 40), 
 modalidade (varchar, tamanho 40), 
@@ -336,3 +336,70 @@ SELECT * FROM Curso WHERE nome LIKE '%a_';
 
 -- j) Elimine a tabela.
 DROP TABLE Curso;
+
+-- -------------------------- EXERCÍCIO 06-----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
+
+/* Você vai criar uma tabela para armazenar os dados de revistas (como por ex: Veja, Isto é,
+Epoca, Quatro Rodas, Claudia, etc).
+Escreva e execute os comandos para:
+Criar a tabela chamada Revista para conter os campos: 
+idRevista (int e chave primária da tabela), 
+nome (varchar, tamanho 40), 
+categoria (varchar, tamanho 30). 
+Os valores de idRevista devem iniciar com o valor 1 e ser incrementado automaticamente pelo sistema. */
+CREATE TABLE Revista (
+	idRevista INT PRIMARY KEY AUTO_INCREMENT, 
+	nome VARCHAR(40), 
+	categoria VARCHAR(30)
+); 
+ALTER TABLE Revista auto_increment = 1;
+
+-- Inserir 4 registros na tabela, mas sem informar a categoria.
+INSERT INTO Revista VALUES 
+	(default, 'Veja', 'esporte'),
+	(default, 'Isto é', 'noticia'),
+	(default, 'Epoca', 'beleza');
+
+/* Escreva e execute os comandos para:
+Exibir todos os dados da tabela. */
+SELECT * FROM Revista;
+
+-- Atualize os dados das categorias das 3 revistas inseridas. 
+UPDATE Revista SET categoria = CASE
+	WHEN idRevista = 1 THEN 'Beleza'
+    WHEN idRevista = 2 THEN 'Beleza'
+    WHEN idRevista = 3 THEN 'Beleza'
+END 
+WHERE idRevista IN (1,2,3);
+
+-- Exibir os dados da tabela novamente para verificar se atualizou corretamente.
+SELECT * FROM Revista;
+
+-- Insira mais 3 registros completos.
+INSERT INTO Revista VALUES 
+	(default, 'NerdMagazine', 'coisas de nerd'),
+    (default, 'Americanas', 'produtos web'),
+    (default, 'Investigacion', 'investigação');
+    
+-- Exibir novamente os dados da tabela.
+SELECT * FROM Revista;
+
+-- Exibir a descrição da estrutura da tabela.
+DESCRIBE Revista;
+
+-- Alterar a tabela para que a coluna categoria possa ter no máximo 40 caracteres.
+ALTER TABLE Revista CHANGE categoria categoria VARCHAR(40);
+
+-- Exibir novamente a descrição da estrutura da tabela, para verificar se alterou o tamanho da coluna categoria.
+DESCRIBE Revista;
+
+-- Acrescentar a coluna periodicidade à tabela, que é varchar(15).
+ALTER TABLE Revista ADD COLUMN periodicidade VARCHAR(15);
+
+-- Exibir os dados da tabela.
+SELECT * FROM Revista;
+
+-- Excluir a coluna periodicidade da tabela.
+ALTER TABLE Revista DROP COLUMN periodicidade;
