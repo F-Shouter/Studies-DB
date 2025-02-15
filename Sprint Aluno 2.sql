@@ -283,3 +283,56 @@ UPDATE Professor SET dtNasc = '1999-03-15' WHERE idProfessor = 3;
 
 -- i) Limpar a tabela Professor;
 TRUNCATE TABLE Professor;
+
+-- -------------------------- EXERCÍCIO 05 -----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’: 
+USE sprint1;
+
+/* Criar a tabela chamada Curso para conter os dados: 
+idCurso, nome (tamanho 50), 
+sigla(tamanho 3), 
+coordenador, 
+sendo que idCurso é a chave primária da tabela. */
+CREATE TABLE Curso (
+	idCurso INT, 
+	nome VARCHAR(50), 
+	sigla VARCHAR(3), 
+	coordenador VARCHAR(40)
+);
+
+-- Inserir dados na tabela, procure inserir pelo menos 3 cursos.
+INSERT INTO Curso VALUES 
+	(1, 'Análise Desenvolvimento de Sistemas', 'ADS', 'Paula'),
+    (2, 'Sistemas de Informação', 'SI', 'Pedro'),
+    (3, 'Ciências da Computação', 'CC', 'Marcio');
+    
+/* Execute os comandos para:
+a) Exibir todos os dados da tabela. */
+SELECT * FROM Curso;
+
+-- b) Exibir apenas os coordenadores dos cursos.
+SELECT coordenador FROM Curso;
+
+-- c) Exibir apenas os dados dos cursos de uma determinada sigla.
+SELECT * FROM Curso WHERE sigla LIKE 'ADS';
+
+-- d) Exibir os dados da tabela ordenados pelo nome do curso.
+SELECT * FROM Curso ORDER BY nome ASC;
+
+-- e) Exibir os dados da tabela ordenados pelo nome do coordenador em ordem decrescente.
+SELECT * FROM Curso ORDER BY coordenador DESC;
+
+-- f) Exibir os dados da tabela, dos cursos cujo nome comece com uma determinada letra.
+SELECT * FROM Curso WHERE nome LIKE 'A%';
+
+-- g) Exibir os dados da tabela, dos cursos cujo nome termine com uma determinada letra.
+SELECT * FROM Curso WHERE nome LIKE '%o';
+
+-- h) Exibir os dados da tabela, dos cursos cujo nome tenha como segunda letra uma determinada letra.
+SELECT * FROM Curso WHERE nome LIKE '_i%';
+
+-- i) Exibir os dados da tabela, dos cursos cujo nome tenha como penúltima letra uma determinada letra.
+SELECT * FROM Curso WHERE nome LIKE '%a_';
+
+-- j) Elimine a tabela.
+DROP TABLE Curso;
