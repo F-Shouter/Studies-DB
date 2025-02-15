@@ -217,3 +217,69 @@ DESCRIBE Filme;
 
 -- Limpar os dados da tabela;
 TRUNCATE TABLE Filme;
+
+-- -------------------------- EXERCÍCIO 04 -----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
+
+/* Criar a tabela chamada Professor para conter os dados: 
+idProfessor, 
+nome (tamanho 50),
+especialidade (tamanho 40), 
+dtNasc (date), 
+sendo que idProfessor é a chave primária da tabela. */
+CREATE TABLE Professor (
+	idProfessor INT PRIMARY KEY,
+    nome VARCHAR(50),
+    especialidade VARCHAR(40),
+    dtNasc date
+);
+
+/* Exemplo do campo data: ‘AAAA-MM-DD’, ‘1983-10-13’.
+Inserir dados na tabela, procurando colocar uma especialista para mais de um professor.
+Procure inserir pelo menos uns 6 professores. */
+INSERT INTO Professor VALUES
+	(1, 'Vivian', 'DB', '1983-10-13'),
+	(2, 'Vivian', 'Algoritmo', '1983-10-13'),
+    (3, 'JP', 'Algoritimo', '1993-10-01'),
+    (4, 'Karine', 'Socio Emocional', '1985-09-13'),
+    (5, 'Frizza', 'PI', '1963-03-10'),
+    (6, 'Monteiro', 'PI', '1973-06-13');
+
+/* Execute os comandos para:
+a) Exibir todos os dados da tabela. */
+SELECT * FROM Professor;
+
+-- b) Adicionar o campo funcao do tipo varchar(50), onde a função só pode ser ‘monitor’, ‘assistente’ ou ‘titular’;
+ALTER TABLE Professor ADD COLUMN funcao VARCHAR(50),
+ADD CONSTRAINT chk_funcao CHECK (funcao IN ('monitor', 'assistente', 'titular'));
+
+-- c) Atualizar os professores inseridos e suas respectivas funções;
+UPDATE Professor SET funcao = CASE
+	WHEN idProfessor = 1 THEN 'monitor'
+    WHEN idProfessor = 2 THEN 'monitor'
+    WHEN idProfessor = 3 THEN 'assistente'
+    WHEN idProfessor = 4 THEN 'titular'
+    WHEN idProfessor = 5 THEN 'titular'
+    WHEN idProfessor = 6 THEN 'titular'
+END
+WHERE idProfessor IN (1,2,3,4,5,6);
+
+-- d) Inserir um novo professor;
+INSERT INTO Professor VALUES
+	(7,'Anne Yukari', 'MT', '2001-09-18', 'assistente');
+
+-- e) Excluir o professor onde o idProfessor é igual a 5;
+DELETE FROM Professor WHERE idProfessor = 5;
+
+-- f) Exibir apenas os nomes dos professores titulares;
+SELECT nome FROM Professor WHERE funcao = 'titular';
+
+-- g) Exibir apenas as especialidades e as datas de nascimento dos professores monitores;
+SELECT especialidade, dtNasc FROM Professor WHERE funcao = 'monitor';
+
+-- h) Atualizar a data de nascimento do idProfessor igual a 3;
+UPDATE Professor SET dtNasc = '1999-03-15' WHERE idProfessor = 3;
+
+-- i) Limpar a tabela Professor;
+TRUNCATE TABLE Professor;
