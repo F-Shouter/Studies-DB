@@ -145,24 +145,75 @@ DESCRIBE Musica;
 TRUNCATE TABLE Musica;
 
 -- -------------------------- EXERCÍCIO 03 -----------------------------------------
-No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
-Criar a tabela chamada Filme para conter os dados: idFilme, título (tamanho 50), genero
-(tamanho 40), diretor (tamanho 40), sendo que idFilme é a chave primária da tabela.
-Inserir dados na tabela, procurando colocar um gênero de filme que tenha mais de um
-filme, e um diretor, que tenha mais de um filme cadastrado. Procure inserir pelo menos
-uns 7 filmes.
-Execute os comandos para:
-• Exibir todos os dados da tabela.
-• Adicionar o campo protagonista do tipo varchar(50) na tabela;
-• Atualizar o campo protagonista de todas os filmes inseridos;
-• Modificar o campo diretor do tamanho 40 para o tamanho 150;
-• Atualizar o diretor do filme com id=5;
-• Atualizar o diretor dos filmes com id=2 e com o id=7;
-• Atualizar o título do filme com o id=6;
-• Excluir o filme com o id=3;
-• Exibir os filmes em que o gênero é diferente de drama;
-• Exibir os dados dos filmes que o gênero é igual ‘suspense’;
-• Descrever os campos da tabela mostrando a atualização do campo protagonista e
-diretor;
-• Limpar os dados da tabela;
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
 
+/* Criar a tabela chamada Filme para conter os dados: 
+idFilme, título (tamanho 50), 
+genero(tamanho 40), 
+diretor (tamanho 40), 
+sendo que idFilme é a chave primária da tabela. */
+CREATE TABLE Filme (
+	idFilme INT PRIMARY KEY,
+    titulo VARCHAR(50),
+    genero VARCHAR(40),
+    diretor VARCHAR(40)
+);
+
+/* Inserir dados na tabela, procurando colocar um gênero de filme que tenha mais de um
+filme, e um diretor, que tenha mais de um filme cadastrado. Procure inserir pelo menos
+uns 7 filmes. */
+INSERT INTO Filme VALUES 
+	(1, 'Titanic', 'Drama', 'Adolfo'),
+    (2, 'Um Olhar no Paraìso', 'Terror', 'Ellen'),
+    (3, 'Exorcismo', 'Terror', 'Will'),
+    (4, 'Pokemon', 'Animaçâo', 'Shun'),
+    (5, 'Pokemon 2', 'Animaçâo', 'Shun'),
+    (6, 'Miraculos', 'Animaçâo', 'Anne'),
+    (7, 'Karate Kid', 'Açâo', 'Ken');
+
+/* Execute os comandos para:
+• Exibir todos os dados da tabela. */ 
+SELECT * FROM Filme;
+
+-- Adicionar o campo protagonista do tipo varchar(50) na tabela;
+ALTER TABLE Filme ADD COLUMN protagonista VARCHAR(50);
+
+-- Atualizar o campo protagonista de todas os filmes inseridos;
+UPDATE Filme SET protagonista = CASE
+	WHEN idFilme = 1 THEN 'Eu'
+    WHEN idFilme = 2 THEN 'Eu'
+    WHEN idFilme = 3 THEN 'Eu'
+    WHEN idFilme = 4 THEN 'Eu'
+    WHEN idFilme = 5 THEN 'Eu'
+    WHEN idFilme = 6 THEN 'Eu'
+	WHEN idFilme = 7 THEN 'Eu'
+END
+WHERE idFilme IN (1,2,3,4,5,6,7);
+
+-- Modificar o campo diretor do tamanho 40 para o tamanho 150;
+ALTER TABLE Filme MODIFY COLUMN diretor VARCHAR(150);
+
+-- Atualizar o diretor do filme com id=5;
+UPDATE Filme SET diretor = 'Eu' WHERE idFilme = 5;
+
+-- Atualizar o diretor dos filmes com id=2 e com o id=7;
+UPDATE Filme SET diretor = 'Eu' WHERE idFilme IN (2,7);
+
+-- Atualizar o título do filme com o id=6;
+UPDATE Filme SET titulo = 'Eu comigo mesmo' WHERE idFilme = 6;
+
+-- Excluir o filme com o id=3;
+DELETE FROM Filme WHERE idFilme = 3;
+
+-- Exibir os filmes em que o gênero é diferente de drama;
+SELECT * FROM Filme WHERE genero != 'drama';
+
+-- Exibir os dados dos filmes que o gênero é igual ‘suspense’;
+SELECT * FROM Filme WHERE genero = 'suspense';
+
+-- Descrever os campos da tabela mostrando a atualização do campo protagonista e diretor;
+DESCRIBE Filme;
+
+-- Limpar os dados da tabela;
+TRUNCATE TABLE Filme;
