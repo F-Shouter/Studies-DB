@@ -403,3 +403,65 @@ SELECT * FROM Revista;
 
 -- Excluir a coluna periodicidade da tabela.
 ALTER TABLE Revista DROP COLUMN periodicidade;
+
+-- -------------------------- EXERCÍCIO 07-----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
+
+/* Você vai criar uma tabela para armazenar os dados de Carros (como por ex: Gol, Fusca, Onix, HB20, Corola, etc).
+Escreva e execute os comandos para:
+• Criar a tabela chamada Carro para conter os campos: 
+idCarro (int e chave primária da tabela), 
+nome (varchar, tamanho 40), 
+placa (char, tamanho 7)
+Os valores de idCarro devem iniciar com o valor 1000 e ser incrementado automaticamente pelo sistema. */
+CREATE TABLE Carro (
+	idCarro INT PRIMARY KEY auto_increment,
+    nome VARCHAR(40),
+    placa CHAR(7)
+);
+ALTER TABLE Carro auto_increment = 1000;
+
+-- Inserir 4 registros na tabela;
+INSERT INTO Carro VALUES 
+	(default, 'fusca', 'ABC1234'),
+    (default, 'gol', 'DEF5678'),
+    (default, 'palho', 'GHI9101'),
+    (default, 'BMW', 'JKL1123');
+
+/* Escreva e execute os comandos para:
+Exibir todos os dados da tabela. */
+SELECT * FROM Carro;
+
+-- Insira mais 3 registros sem a placa dos carros.
+INSERT INTO Carro VALUES 
+	(default, 'hyukenji', 'IKN1234'),
+    (default, 'fortin', 'DEF5699'),
+    (default, 'corola', 'JKL6666');
+
+-- Exibir novamente os dados da tabela.
+SELECT * FROM Carro;
+
+-- Exibir a descrição da estrutura da tabela.
+DESCRIBE Carro;
+
+-- Alterar a tabela para que a coluna nome possa ter no máximo 28 caracteres.
+ALTER TABLE Carro CHANGE nome nome VARCHAR(28);
+
+-- Exibir novamente a descrição da estrutura da tabela, para verificar se alterou o tamanho da coluna;
+DESCRIBE Carro;
+
+-- Acrescentar a coluna ano à tabela, que é char(4);
+ALTER TABLE Carro ADD COLUMN ano CHAR(4);
+
+-- Atualizar todos os dados nulos da tabela;
+UPDATE Carro SET ano = CASE
+	WHEN idCarro =1000 THEN '2001'
+    WHEN idCarro =1001 THEN '2002'
+    WHEN idCarro =1002 THEN '2003'
+    WHEN idCarro =1003 THEN '2004'
+    WHEN idCarro =1004 THEN '2005'
+    WHEN idCarro =1005 THEN '2006'
+    WHEN idCarro =1006 THEN '2007'
+END
+WHERE idCarro IN (1000,1001,1002,1003,1004,1005,1006);
