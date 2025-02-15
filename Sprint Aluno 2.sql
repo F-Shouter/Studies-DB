@@ -1,0 +1,168 @@
+-- -------------------------- EXERCÍCIO 01 -----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
+
+/* Escreva e execute os comandos para:
+• Criar a tabela chamada Atleta para conter os dados: 
+idAtleta (int e chave primária da tabela), 
+nome (varchar, tamanho 40), 
+modalidade (varchar, tamanho 40), 
+qtdMedalha (int, representando a quantidade de medalhas que o atleta possui) */
+CREATE TABLE Atleta (
+	idAtleta INT PRIMARY KEY, 
+	nome VARCHAR(40),
+	modalidade VARCHAR(40), 
+	qtdMedalha INT
+);
+
+/* Inserir dados na tabela, procurando colocar mais de um atleta para cada modalidade
+e pelo menos 5 atletas. */
+INSERT INTO Atleta VALUES
+	(1, 'Anne Yukari Yamasaki', 'corrida de salto', 2),
+    (2, 'Jhum Yamasaki', 'corrida de bastão', 5),
+    (3, 'Júlia Ayumi Yamasaki', 'corrida de salto', 7),
+    (4, 'Lúcia Humie Kanbe Yamasaki', 'corrida de escada', 4),
+    (5, 'Alberto Kioshi Yamasaki', 'corrida de trambolim', 1);
+
+/* Escreva e execute os comandos para:
+• Exibir todos os dados da tabela. */
+SELECT * FROM Atleta;
+
+-- Atualizar a quantidade de medalhas do atleta com id=1;
+UPDATE Atleta SET qtdMedalha = 9 WHERE idAtleta = 1;
+
+-- Atualizar a quantidade de medalhas do atleta com id=2 e com o id=3;
+UPDATE Atleta SET qtdMedalha = 8 WHERE idAtleta IN (2,3);
+
+-- Atualizar o nome do atleta com o id=4;
+UPDATE Atleta SET nome = 'Lúcia Yamasaki' WHERE idAtleta = 4;
+
+-- Adicionar o campo dtNasc na tabela, com a data de nascimento dos atletas, tipo date;
+ALTER TABLE Atleta ADD COLUMN dtNasc DATE;
+
+-- Atualizar a data de nascimento de todos os atletas;
+UPDATE Atleta SET dtNasc = CASE
+	WHEN idAtleta = 1 THEN '2001-09-18'
+    WHEN idAtleta = 2 THEN '2005-11-03'
+    WHEN idAtleta = 3 THEN '2000-03-27'
+    WHEN idAtleta = 4 THEN '1976-08-16'
+    WHEN idAtleta = 5 THEN '1971-03-24'
+END 
+WHERE idAtleta IN (1,2,3,4,5);
+
+-- Excluir o atleta com o id=5;
+DELETE FROM Atleta WHERE idAtleta = 5;
+
+-- Exibir os atletas onde a modalidade é diferente de natação;
+SELECT * FROM Atleta WHERE modalidade = 'nataçâo';
+
+-- Exibir os dados dos atletas que tem a quantidade de medalhas maior ou igual a 3;
+SELECT * FROM Atleta WHERE qtdMedalha >= 3;
+
+-- Modificar o campo modalidade do tamanho 40 para o tamanho 60;
+ALTER TABLE Atleta MODIFY COLUMN modalidade VARCHAR(60);
+
+-- Descrever os campos da tabela mostrando a atualização do campo modalidade;
+DESCRIBE Atleta;
+
+-- Limpar os dados da tabela;
+TRUNCATE TABLE Atleta;
+
+-- -------------------------- EXERCÍCIO 02 -----------------------------------------
+-- No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+USE sprint1;
+
+/* Criar a tabela chamada Musica para conter os dados: 
+idMusica, 
+titulo (tamanho 40), 
+artista
+(tamanho 40), 
+genero (tamanho 40), 
+sendo que idMusica é a chave primária da tabela. */
+CREATE TABLE Musica (
+	idMusica INT PRIMARY KEY,
+    titulo VARCHAR(40),
+    artista VARCHAR(40),
+    genero VARCHAR(40)
+);
+
+/* Inserir dados na tabela, procurando colocar um gênero de música que tenha mais de uma
+música, e um artista, que tenha mais de uma música cadastrada. Procure inserir pelo
+menos umas 7 músicas. */
+INSERT INTO Musica VALUES 
+	(1, 'Amor Pirata', 'Jaum', 'POP'),
+    (2, 'Numb', 'Linkin Park', 'Rock'),
+    (3, 'Ballad Mona Lisa', 'Panic at The Disco', 'Rock'),
+    (4, 'Friends', 'Kana Nishino', 'J-POP'),
+    (5, 'Dona Morte', 'VNZ', 'SAD'),
+    (6, 'Broke', 'Nico Collins', 'POP'),
+    (7, 'Wannabe', 'Nightcore', 'POP');
+
+/* Execute os comandos para:
+a) Exibir todos os dados da tabela. */
+SELECT * FROM Musica;
+
+-- b) Adicionar o campo curtidas do tipo int na tabela;
+ALTER TABLE Musica ADD COLUMN curtidas INT;
+
+-- c) Atualizar o campo curtidas de todas as músicas inseridas;
+UPDATE Musica SET curtidas = CASE
+	WHEN idMusica = 1 THEN 10
+    WHEN idMusica = 2 THEN 100
+    WHEN idMusica = 3 THEN 1000
+    WHEN idMusica = 4 THEN 10000
+    WHEN idMusica = 5 THEN 100000
+    WHEN idMusica = 6 THEN 1000000
+    WHEN idMusica = 7 THEN 10000000
+END
+WHERE idMusica IN (1, 2, 3, 4, 5, 6, 7);
+
+-- d) Modificar o campo artista do tamanho 40 para o tamanho 80;
+ALTER TABLE Musica MODIFY COLUMN artista VARCHAR(80);
+
+-- e) Atualizar a quantidade de curtidas da música com id=1;
+UPDATE Musica SET curtidas = 80 WHERE idMusica = 1;
+
+-- f) Atualizar a quantidade de curtidas das músicas com id=2 e com o id=3;
+UPDATE Musica SET curtidas = 90 WHERE idMusica IN (2, 3);
+
+-- g) Atualizar o nome da música com o id=5;
+UPDATE Musica SET titulo = 'GanGan' WHERE idMusica = 5;
+
+-- h) Excluir a música com o id=4;
+DELETE FROM Musica WHERE idMusica = 4;
+
+-- i) Exibir as músicas onde o gênero é diferente de funk;
+SELECT * FROM Musica WHERE genero != 'funk';
+
+-- j) Exibir os dados das músicas que tem curtidas maior ou igual a 20;
+SELECT * FROM Musica WHERE curtidas >= 20;
+
+-- k) Descrever os campos da tabela mostrando a atualização do campo artista;
+DESCRIBE Musica;
+
+-- l) Limpar os dados da tabela;
+TRUNCATE TABLE Musica;
+
+-- -------------------------- EXERCÍCIO 03 -----------------------------------------
+No MySQL Workbench, utilizando o banco de dados ‘sprint1’:
+Criar a tabela chamada Filme para conter os dados: idFilme, título (tamanho 50), genero
+(tamanho 40), diretor (tamanho 40), sendo que idFilme é a chave primária da tabela.
+Inserir dados na tabela, procurando colocar um gênero de filme que tenha mais de um
+filme, e um diretor, que tenha mais de um filme cadastrado. Procure inserir pelo menos
+uns 7 filmes.
+Execute os comandos para:
+• Exibir todos os dados da tabela.
+• Adicionar o campo protagonista do tipo varchar(50) na tabela;
+• Atualizar o campo protagonista de todas os filmes inseridos;
+• Modificar o campo diretor do tamanho 40 para o tamanho 150;
+• Atualizar o diretor do filme com id=5;
+• Atualizar o diretor dos filmes com id=2 e com o id=7;
+• Atualizar o título do filme com o id=6;
+• Excluir o filme com o id=3;
+• Exibir os filmes em que o gênero é diferente de drama;
+• Exibir os dados dos filmes que o gênero é igual ‘suspense’;
+• Descrever os campos da tabela mostrando a atualização do campo protagonista e
+diretor;
+• Limpar os dados da tabela;
+
