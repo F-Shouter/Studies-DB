@@ -227,3 +227,55 @@ TRUNCATE animado;
 
 -- 11. Remover a regra do status do desenho
 ALTER TABLE animado DROP constraint chkStatu;
+
+
+-- -------------------------- EXERCÍCIO 04 -------------------------------------
+/* 4 – Despensa do Scooby-Doo
+No MySQL Workbench, crie o banco de dados "estoque".
+A turma do Scooby Doo percebeu que os alimentos guardados no armário estavam
+sumindo de forma muito rápida. Para ter um melhor controle, Fred propôs criar
+um banco de dados que registrasse os dados de entrada e saída dos alimentos do
+armário.
+Ele criou uma tabela chamada "MisteriosSA", que possui os campos id um número
+inteiro chave primária, nome um campo de texto para armazenar o nome do
+produto, data da compra para armazenar a data na qual o produto foi comprado,
+preço valor numérico com casas decimais, peso um valor numérico que armazena
+o peso em gramas e data de retirada para armazenar a data em que o produto foi
+consumido. */
+CREATE database estoque;
+USE estoque;
+
+create table MisteriosSA (
+	idAlimento INT primary KEY,
+    nome VARCHAR(30),
+    dtCompra date,
+    preco DECIMAL(10.2),
+    peso DOUBLE,
+    dtRetirada DATE
+);
+
+-- 1. Insira na tabela, no mínimo 5 compras de alimentos com datas diferentes. Por agora, não preencha a coluna referente a "data de retirada".
+INSERT INTO MisteriosSA (idAlimento, nome, dtCompra, preco, peso, dtRetirada) VALUES
+	(1, 'Queijo', '2024-01-15', 25.50, 0.500, NULL),
+	(2, 'Pão', '2024-02-02', 5.99, 0.300, NULL),
+	(3, 'Leite', '2024-02-10', 4.50, 1.000, NULL),
+	(4, 'Carne', '2024-02-20', 45.00, 1.500, NULL),
+	(5, 'Maçã', '2024-03-01', 9.99, 1.200, NULL);
+
+-- 2. Verifique se os valores foram inseridos corretamente.
+SELECT * FROM MisteriosSA;
+
+-- 3. Exiba os nomes, as datas de compra e retirada e o id dos alimentos ordenados a partir da data de compra mais antiga.
+SELECT nome, dtCompra, dtRetirada, idAlimento FROM MisteriosSA ORDER BY dtCompra ASC;
+
+-- 4. Alguém comeu uma caixa de biscoitos, atualize a data de retirada da caixa de “Biscoitos Scooby” que foi comprada a mais tempo.
+INSERT INTO MisteriosSA (idAlimento, nome, dtCompra, preco, peso, dtRetirada) VALUES
+	(6, 'Biscoitos Scooby', '2024-01-15', 25.50, 0.500, '2025-02-17');
+UPDATE MisteriosSA SET dtRetirada = '2025-05-25' WHERE idAlimento = 6;
+
+-- 5. Altere o nome da coluna id para idComida.
+-- 6. Altere o tipo do check para que os alimentos só possam ser “Biscoitos Scooby” ou “Cachorro-quente”.
+-- 7. Exiba os produtos onde o nome seja "Biscoitos Scooby" de forma que o nome das colunas dataCompra apareça como "data da compra" e dataRetirada apareça como "data da retirada".
+-- 8. Exiba os alimentos que foram comprados antes do dia 25 de julho de 2024.
+-- 9. Exiba os alimentos que possuem um preço acima ou igual a 30.50.
+-- 10. Limpe a tabela.
