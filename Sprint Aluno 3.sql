@@ -59,4 +59,12 @@ SELECT * FROM sensor;
 
 -- IFNULL
 SELECT IFNULL(numSerie, 'SEM NUMSERIE') AS numSerie FROM sensor;
+
+-- CASE, tipo if else
+SELECT tipo, CASE 
+	WHEN statusSensor = 'ativo' THEN 1
+    WHEN statusSensor = 'inativo' THEN 2
+    WHEN statusSensor = 'manutenção' THEN 3
+    ELSE 0
+    END AS A FROM sensor;
     
