@@ -23,10 +23,33 @@ CREATE TABLE sensor (
 );
 
 INSERT INTO sensor VALUES 
-	(DEFAULT, 'DHT11', '2025-02-17 13:14:00', 'Pendente');
+	(DEFAULT, 'DHT11', '2025-02-17 13:14:00', 'Pendente'); -- 'Pendente fará ERRO'
     
 INSERT INTO sensor (tipo, dtManutencao, statusSensor) VALUES 
 	('DAF11', '2026-01-17 13:00:00', 'Ativo');
     
 SELECT * FROM sensor;
+
+DESCRIBE sensor;
+
+-- data automática:
+ALTER TABLE sensor 
+	MODIFY COLUMN dtManutencao DATETIME DEFAULT CURRENT_TIMESTAMP;
+    
+INSERT INTO sensor (tipo, statusSensor) VALUES 
+	('EAF11', 'Ativo');
+    
+-- excluir uma constraint
+ALTER TABLE sensor DROP CONSTRAINT chkStatus;
+
+ALTER TABLE sensor ADD CONSTRAINT chkStatus
+	CHECK(statusSensor IN ('Ativo', 'Inativo', 'Manutenção'));
+    
+-- adicionar um campo com número de serie so sensor
+ALTER TABLE sensor ADD COLUMN numSerie CHAR(3) UNIQUE; -- cada numSerie precisa ser único.
+
+UPDATE sensor SET numSerie = '001' WHERE idSensor = 1;
+UPDATE sensor SET numSerie = '001' WHERE idSensor = 2; -- ERRO por conta que o 001 é único.
+
+
     
