@@ -51,5 +51,12 @@ ALTER TABLE sensor ADD COLUMN numSerie CHAR(3) UNIQUE; -- cada numSerie precisa 
 UPDATE sensor SET numSerie = '001' WHERE idSensor = 1;
 UPDATE sensor SET numSerie = '001' WHERE idSensor = 2; -- ERRO por conta que o 001 é único.
 
+-- alias = apelido
+SELECT tipo AS 'Tipo de sensor',
+	dtManutencao AS 'Data de manutenção' FROM sensor;
+    
+SELECT * FROM sensor;
 
+-- IFNULL
+SELECT IFNULL(numSerie, 'SEM NUMSERIE') AS numSerie FROM sensor;
     
