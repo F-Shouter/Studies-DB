@@ -68,3 +68,9 @@ SELECT tipo, CASE
     ELSE 0
     END AS A FROM sensor;
     
+-- default = padrão
+ALTER TABLE sensor ADD COLUMN nome VARCHAR(20) default 'SEM NOME';
+SELECT * FROM sensor;
+
+
+    
