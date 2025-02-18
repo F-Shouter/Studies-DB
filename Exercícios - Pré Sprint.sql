@@ -292,3 +292,5 @@ SELECT * FROM MisteriosSA WHERE preco >= 30.5;
 
 -- 10. Limpe a tabela.
 TRUNCATE TABLE MisteriosSA;
+
+-- -------------------------- EXERCÍCIO 05 -------------------------------------
