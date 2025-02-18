@@ -294,3 +294,64 @@ SELECT * FROM MisteriosSA WHERE preco >= 30.5;
 TRUNCATE TABLE MisteriosSA;
 
 -- -------------------------- EXERCÍCIO 05 -------------------------------------
+/* 5 – Heróis
+No MySQL Workbench, crie o banco de dados “vingadores”.
+Crie uma tabela chamada “heroi”, onde terá um campo de nome contendo até 45
+caracteres. O seu herói poderá ter uma versao, onde será armazenado o filme de
+sua escolha, esse campo aceitará até 45 caracteres. Todo herói, tem uma
+habilidade que se destaca entre os outros super-heróis. Todo herói tem uma
+altura, esse campo aceitará valores inteiros representando centímetros. O id
+deverá se autoincrementar.
+Insira 5 heróis para derrotar o vilão Doutor Destino. */
+CREATE DATABASE vingadores;
+USE vingadores;
+CREATE TABLE heroi(
+	nome VARCHAR(45),
+    versao VARCHAR(45),
+    habilidade VARCHAR(45),
+    altura INT,
+    idHeroi INT primary key  auto_increment
+);
+INSERT INTO heroi (nome, versao, habilidade, altura) VALUES
+    ('Doutor Estranho', 'Terra-616', 'Magia Suprema', 180),
+    ('Thor', 'Terra-616', 'Força Divina', 198),
+    ('Feiticeira Escarlate', 'Terra-616', 'Manipulação da Realidade', 170),
+    ('Homem de Ferro', 'Terra-616', 'Armadura Tecnológica', 185),
+    ('Surfista Prateado', 'Terra-616', 'Poder Cósmico', 193);
+
+-- 1. Exiba os dados inseridos na tabela
+SELECT * FROM heroi;
+
+-- 2. Adicione um campo de regeneração, onde ele aceitará apenas os valores
+-- booleanos de TRUE ou FALSE.
+ALTER TABLE heroi ADD COLUMN regeneracao BOOLEAN;
+
+ALTER TABLE heroi ADD constraint chkRegenera CHECK(regeneracao IN ('TRUE', 'FALSE'));
+
+-- 3. Modifique o campo versão para aceitar até 100 caracteres.
+ALTER TABLE heroi MODIFY COLUMN versao VARCHAR(100);
+
+-- 4. Remova o herói de id 3 pois ele se morreu em batalha.
+DELETE FROM heroi WHERE idHeroi = 3;
+
+-- 5. Chegou reforços, insira um novo herói para a equipe.
+INSERT INTO heroi (nome, versao, habilidade, altura, idHeroi) VALUES
+	('Anne Yukari', 'Terra-222', 'Desenhar', 155, default);
+
+-- 6. Exiba todos os dados inseridos na tabela onde o nome do herói começa
+-- com “C” ou “H”.
+SELECT * FROM heroi WHERE nome LIKE 'C%' or 'H%';
+
+-- 7. Exiba todos os dados inseridos na tabela onde o nome do herói não contém
+-- a letra “A” no campo nome.
+SELECT * FROM heroi WHERE nome NOT LIKE '%A%';
+
+-- 8. Exiba apenas o nome do herói onde a altura for maior que 190.
+SELECT nome FROM heroi WHERE altura > 190;
+
+-- 9. Exiba todos os dados da tabela de forma decrescente pelo nome onde a
+-- altura do herói for maior que 180.
+SELECT * FROM heroi WHERE altura > 180 ORDER BY nome DESC;
+
+-- 10. Limpe os dados da tabela
+TRUNCATE TABLE heroi;
