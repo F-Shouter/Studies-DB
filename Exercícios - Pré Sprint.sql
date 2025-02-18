@@ -274,8 +274,21 @@ INSERT INTO MisteriosSA (idAlimento, nome, dtCompra, preco, peso, dtRetirada) VA
 UPDATE MisteriosSA SET dtRetirada = '2025-05-25' WHERE idAlimento = 6;
 
 -- 5. Altere o nome da coluna id para idComida.
+ALTER TABLE MisteriosSA CHANGE idAlimento idComida INT;
+
 -- 6. Altere o tipo do check para que os alimentos só possam ser “Biscoitos Scooby” ou “Cachorro-quente”.
+ALTER TABLE MisteriosSA ADD CONSTRAINT chkAlimento CHECK (nome IN ('Biscoitos Scoob' OR 'Cachorro-quente'));
+
 -- 7. Exiba os produtos onde o nome seja "Biscoitos Scooby" de forma que o nome das colunas dataCompra apareça como "data da compra" e dataRetirada apareça como "data da retirada".
+SELECT dtCompra AS 'data da compra', dtRetirada AS 'data da retirada'
+    FROM MisteriosSA
+	WHERE nome = 'Biscoitos Scooby';
+    
 -- 8. Exiba os alimentos que foram comprados antes do dia 25 de julho de 2024.
+SELECT * FROM MisteriosSA WHERE dtCompra < '2024-07-25';
+
 -- 9. Exiba os alimentos que possuem um preço acima ou igual a 30.50.
+SELECT * FROM MisteriosSA WHERE preco >= 30.5;
+
 -- 10. Limpe a tabela.
+TRUNCATE TABLE MisteriosSA;
