@@ -1,3 +1,5 @@
+-- -------------------------------- Aula 1----------------------------------------
+
 CREATE DATABASE sprint1;
 
 -- --------------------------- EXERCÍCIO 1:-------------------------------------
@@ -245,3 +247,92 @@ SELECT * FROM Jogo WHERE nome != 'Minecraft';
 
 -- Elimine a tabela
 DROP TABLE Jogo;
+
+-- -------------------------------- Aula 2----------------------------------------
+
+CREATE TABLE pessoa (
+	idPessoa int primary key auto_increment,
+	nome varchar(40),
+	dtNasc date
+);
+
+INSERT INTO pessoa VALUES
+	(default, 'Homem Aranha', '1999-01-10');
+
+SELECT * FROM pessoa;
+
+INSERT INTO pessoa (nome, dtNasc) VALUES
+	('Super Homem', '1995-06-17'),
+    ('Super Homem', '1995-06-17');
+    
+INSERT INTO pessoa VALUES
+	(null, 'Aranhinha', '1999-01-10');
+	-- NULL = NÃO TEM DADO 
+    -- DEFAULT = PADRÃO, O ÚLTIMO ID +1
+    
+-- DATETIME = 'AAAA-MM-DD HH-MM-SS'
+-- DATE = 'AAAA-MM-DD'	
+
+DESCRIBE pessoa;
+
+/*
+CAMPOS NÚMERICOS:
+
+	NÚMEROS INTEIROS:
+		INT: ID por exemplo.
+        TINYINT(menor que int): gasta menos espaço, "zero ou um" números boleanos. 
+        
+	NÚMEROS DECIMAIS:
+		FLOAT: 7 caracteres (12345.67). Usado em altura por exemplo.
+        DOUBLE: 15 caracteres (1234567891234.56)
+        DECIMAL: 32 caracteres
+			decimal(5,2)= 123.45 vai se 5 nímeros e volta 2 casas. (usado em dinheiro)
+            decimal(7,3)= 1234.567
+*/
+
+ALTER TABLE pessoa ADD COLUMN altura FLOAT;
+
+DESCRIBE pessoa;
+
+SELECT * FROM pessoa;
+
+ALTER TABLE pessoa ADD COLUMN salario DECIMAL(10,2);
+
+INSERT INTO pessoa (nome, salario) VALUES
+	('Hulk', 1.99);
+    
+UPDATE pessoa SET salario = 50.90 WHERE idPessoa = 1;
+
+ALTER TABLE pessoa DROP COLUMN altura;
+
+ALTER TABLE pessoa MODIFY COLUMN nome VARCHAR(50);
+
+ALTER TABLE pessoa CHANGE dtNasc Nascimento VARCHAR(10);
+
+DELETE FROM pessoa WHERE idPessoa = 2;
+
+INSERT INTO pessoa (nome, salario) VALUES
+	('Homem de Ferro', 100.66);
+
+UPDATE pessoa SET Nascimento = '1200-55-66' WHERE idPessoa = 4;
+
+ALTER TABLE pessoa auto_increment = 1000;
+
+INSERT INTO pessoa (nome, Nascimento, salario) VALUES
+	('Chapollin', '1856-02-12', 0.99);
+    
+TRUNCATE TABLE pessoa; 
+-- LIMPA OS DADOS DA TABELA, INCLUSIVE O auto_increment e reinicia desde o 1 novamente.
+
+DROP TABLE pessoa;
+
+
+
+
+
+
+
+
+
+
+

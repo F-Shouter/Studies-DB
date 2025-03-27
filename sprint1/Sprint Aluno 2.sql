@@ -3,7 +3,7 @@
 USE sprint1;
 
 /* Escreva e execute os comandos para:
-Criar a tabela chamada Atleta para conter os dados: 
+• Criar a tabela chamada Atleta para conter os dados: 
 idAtleta (int e chave primária da tabela), 
 nome (varchar, tamanho 40), 
 modalidade (varchar, tamanho 40), 
@@ -465,3 +465,5 @@ UPDATE Carro SET ano = CASE
     WHEN idCarro =1006 THEN '2007'
 END
 WHERE idCarro IN (1000,1001,1002,1003,1004,1005,1006);
+
+

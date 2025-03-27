@@ -1,0 +1,112 @@
+-- CRIAR O BANCO DE DADOS SPRINT1
+-- TODOS OS COMANDOS SÃO EM INGLÊS
+-- TODOS OS COMANDOS TERMINAM COM PONTO E VÍRGULA
+-- TODA TABELA TEM UMA CHAVE PRIMÁRIA
+
+-- CRIAR UM BANCO DE DADOS
+CREATE DATABASE sprint1;
+
+-- UTILIZAR O BANCO DE DADOS CRIADO
+USE sprint1;
+
+-- CRIAR NOSSA PRIMEIRA TABELA
+CREATE TABLE aluno (
+ra CHAR(8) PRIMARY KEY, -- idAluno INT PRIMARY KEY
+nome VARCHAR(30),
+bairro VARCHAR(25)
+);
+
+-- COMO REGRA A CHAVE PRIMÁRIA É SEMPRE DO TIPO INTEIRO(INT)
+-- SE TEM EXCEÇÃO COMO O RA, PODE SER OUTRA TIPAGEM
+
+-- DESCREVER A TABELA
+DESCRIBE aluno;
+DESC aluno;
+
+-- MOSTRAR TABELAS CRIADAS
+SHOW TABLES;
+
+-- INSERIR OS DADOS
+INSERT INTO aluno VALUES
+	('01251020', 'Henry', 'Flor de Maio');
+
+-- EXIBIR OS DADOS DA MINHA TABELA
+SELECT ra, nome, bairro FROM aluno;
+SELECT * FROM aluno;
+
+SELECT ra, nome FROM aluno;
+
+INSERT INTO aluno VALUES
+	('01251089', 'Anne', 'Barroso'),
+    ('01251008', 'João Victor', 'Cantinho do Céu');
+
+SELECT * FROM aluno;
+
+INSERT INTO aluno (ra, nome) VALUES
+	('01251057', 'Hygor');
+
+-- EXIBIR OS ALUNOS QUE MORAM EM Cantinho do Céu
+SELECT * FROM aluno WHERE bairro = 'Cantinho do Céu';
+
+-- EXIBIR OS ALUNOS QUE MORAM NO BAIRRO DIFERENTE DE Cantinho do Céu
+SELECT * FROM aluno WHERE bairro != 'Cantinho do Céu';
+SELECT * FROM aluno WHERE bairro <> 'Cantinho do Céu';
+
+-- EXIBIR O ALUNO QUE MORA EM FLOR DE MAIO OU O ALUNO QUE MORA EM CANTINHO DO CÉU
+SELECT * FROM aluno WHERE bairro = 'Flor de Maio'
+	OR bairro = 'Cantinho do Céu';
+    
+SELECT * FROM aluno 
+	WHERE bairro IN ('Flor de Maio', 'Cantinho do Céu');
+
+SELECT * FROM aluno;
+
+-- EXIBIR OS NOMES QUE COMEÇAM COM A LETRA H
+SELECT nome FROM aluno WHERE nome LIKE 'H%';
+
+-- EXIBIR OS NOMES QUE TERMINAM COM R
+SELECT nome FROM aluno WHERE nome LIKE '%r';
+
+-- EXIBIR OS NOMES QUE CONTÉM A LETRA y
+SELECT nome FROM aluno WHERE nome LIKE '%y%';
+
+-- EXIBIR OS NOMES ONDE A SEGUNDA LETRA É e
+SELECT nome FROM aluno WHERE nome LIKE '_e%';
+
+-- EXIBIR OS NOMES ONDE A PENÚLTIMA LETRA É r
+SELECT nome FROM aluno WHERE nome LIKE '%r_';
+
+SELECT * FROM aluno;
+
+-- EXIBIR OS DADOS ORDENADOS EM ORDEM CRESCENTE DO NOME
+SELECT * FROM aluno ORDER BY nome ASC;
+
+-- EXIBIR OS DADOS ORDENADOS EM ORDEM DECRESCENTE DO NOME
+SELECT * FROM aluno ORDER BY nome DESC;
+SELECT * FROM aluno ORDER BY bairro DESC;
+
+-- EXIBIR OS DADOS DOS ALUNOS QUE COMEÇAM COM H ORDENADOS PELO bairro
+SELECT * FROM aluno WHERE nome LIKE 'H%' ORDER BY bairro;
+
+-- EXIBIR OS NOMES QUE TEM 2 NOMES
+SELECT * FROM aluno WHERE nome LIKE '% %';
+
+-- DESAFIO --
+-- EXIBIR O BAIRRO ONDE O TERCEIRO NOME COMEÇA COM m
+SELECT bairro FROM aluno WHERE bairro LIKE '% % M%';
+
+-- EXCLUIR UMA TABELA
+-- DROP TABLE aluno;
+
+-----------------------------------------------------------------------
+
+CREATE TABLE pessoa (
+	idPessoa int primary key auto_increment,
+	nome varchar(40),
+	dtNasc date
+);
+
+INSERT INTO pessoa VALUES
+	(default, 'Homem Aranha', '1999-01-10');
+
+SELECT * FROM pessoa;
