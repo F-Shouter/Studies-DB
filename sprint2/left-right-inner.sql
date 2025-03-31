@@ -33,3 +33,44 @@ select
 from funcionario
 join funcionario as supervisor
 on funcionario.fkSupervisor = supervisor.idFunc;
+
+create table dependente (
+	idDep int,
+    fkFunc int,
+    constraint pkComposta primary key (idDep, fkFunc),
+    nome varchar(45),
+    parentesco varchar(45),
+    constraint fkFuncDep foreign key (fkFunc) references funcionario(idFUnc)
+); -- Entidade fraca, depende de outra tabela. 
+
+insert into dependente values 
+	(1, 1, 'Isabela', 'filha');
+    
+insert into dependente values 
+	(2, 1, 'Ademir', 'filho'),
+    (1, 3, 'João', 'filho');
+    
+select 
+	* from funcionario
+    join dependente 
+    on idFUnc = fkFunc;
+    
+select 
+	ifnull (f.nome, 'sem dependente') as 'Funcionário',
+    ifnull (d.nome, 'sem dependente') as 'Dependente:'
+from funcionario as f
+left join dependente as d
+on idFunc = fkFunc;
+
+select 
+	f.nome as 'Nome_func:',
+    s.nome as 'Supervisionado por:',
+case 
+	when d.nome is null or d.parentesco is null then '---------------'
+else concat(d.nome, ' É ', d.parentesco)
+end as Dependente
+from funcionario as f
+join funcionario as s
+on f.fkSupervisor = s.idFunc
+left join dependente as d
+on f.idFunc = d.fkFunc;
